@@ -67,11 +67,11 @@ function read() {
                             console.log(`V:${v} A:${a}  W:${w} F:${f}`)
                             send(JSON.stringify({ v: v, i: a, p: w, f: f, sw: sw }))
                         })
-                    }, 10)
+                    }, 20)
                 })
-            }, 10)
-        }, 10)
-    }, 10)
+            }, 20)
+        }, 20)
+    }, 20)
     /*
 */
 }
