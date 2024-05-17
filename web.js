@@ -61,14 +61,15 @@ function read() {
             setTimeout(() => {
                 client.readHoldingRegisters(0x0006, 2).then((data) => {
                     w = buffertofloat32(data.buffer, 3);
-                    setTimeout(() => {
-                        client.readHoldingRegisters(0x0014, 2).then((data) => {
-                            f = buffertofloat32(data.buffer, 3);
-                            console.log(`V:${v} A:${a}  W:${w} F:${f}`)
-                            send(JSON.stringify({ v: v, i: a, p: w, f: f, sw: sw }))
-                        })
-                    }, 20)
+
                 })
+                setTimeout(() => {
+                    client.readHoldingRegisters(0x0014, 2).then((data) => {
+                        f = buffertofloat32(data.buffer, 3);
+                        console.log(`V:${v} A:${a}  W:${w} F:${f}`)
+                        send(JSON.stringify({ v: v, i: a, p: w, f: f, sw: sw }))
+                    })
+                }, 20)
             }, 20)
         }, 20)
     }, 20)
