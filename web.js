@@ -9,7 +9,7 @@ app.get("/", (req, res) => {
     res.sendFile(__dirname + "/web/index.html");
 });
 const wss = new WebSocket.Server({ server });
-// 監聽WebSocket連線
+// ??WebSocket???
 wss.on('connection', (ws) => {
     ws.on('message', (message) => {
         let data = JSON.parse(message)
@@ -23,29 +23,28 @@ wss.on('connection', (ws) => {
             client.writeRegisters(0x0209, [0])
         }
     });
-    // 斷開WebSocket連線
+    // ?琿?WebSocket???
     ws.on('close', () => {
     });
 });
 function send(data) {
     let clients = wss.clients;
     clients.forEach((client) => {
-        client.send(data);//回去的資料
-    });
+        client.send(data);//?????    });
 }
 
 
 var ModbusRTU = require("modbus-serial");
 var client = new ModbusRTU();
 // open connection to a serial port
-client.connectRTUBuffered("COM8", { baudRate: 9600 }, write);
+client.connectRTUBuffered("/dev/ttyS0", { baudRate: 9600 }, write);
 let i = 0;
 function write() {
     client.setID(1);
     //read();
     setInterval(read, 1000);
 }
-let v, a, w;
+let v, a, w,f;
 function read() {
     client.readHoldingRegisters(0, 2).then((data) => {
         v = buffertofloat32(data.buffer, 2);
@@ -60,8 +59,16 @@ function read() {
             client.readHoldingRegisters(0x0006, 2).then((data) => {
 
                 w = buffertofloat32(data.buffer, 3);
-                console.log(`V:${v} A:${a}  W:${w}`)
-                send(JSON.stringify({ v: v, i: a, p: w }))
+               // console.log(`V:${v} A:${a}  W:${w}`)
+                //send(JSON.stringify({ v: v, i: a, p: w }))
+                        setTimeout(() => {
+                            client.readHoldingRegisters(0x0014, 2).then((data) => {
+
+                                f = buffertofloat32(data.buffer, 3);
+                            console.log(`V:${v} A:${a}  W:${w} F:${f}`)
+                            send(JSON.stringify({ v: v, i: a, p: w ,f:f}))
+                        })
+                }, 50)
             })
         }, 50)
     }, 50)
