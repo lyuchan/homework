@@ -102,8 +102,6 @@
         document.getElementById("ftablem").innerHTML = `${data.f}HZ`
         if (data.sw == 16) {
             //r
-            document.getElementById("immmmmmm").src = "./img/r.svg"
-        } else {
             if (data.i > 0) {
                 //g
                 document.getElementById("immmmmmm").src = "./img/g.svg"
@@ -111,6 +109,9 @@
                 //y
                 document.getElementById("immmmmmm").src = "./img/y.svg"
             }
+
+        } else {
+            document.getElementById("immmmmmm").src = "./img/r.svg"
         }
 
         // getData(data.v, data.i, data.p)
