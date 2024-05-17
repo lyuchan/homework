@@ -38,10 +38,10 @@ function send(data) {
 var ModbusRTU = require("modbus-serial");
 var client = new ModbusRTU();
 // open connection to a serial port
-client.connectRTUBuffered("/dev/ttyS0", { baudRate: 9600 }, write);
+client.connectRTUBuffered("/dev/ttyS0", { baudRate: 115200 }, write);
 let i = 0;
 function write() {
-    client.setID(1);
+    client.setID(3);
     //read();
     setInterval(read, 1000);
 }
