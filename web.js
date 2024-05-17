@@ -52,7 +52,7 @@ function read() {
     })
     setTimeout(() => {
         client.readHoldingRegisters(0x0209, 1).then((data) => {
-            console.log(data.buffer[0])
+            console.log(data.buffer)
         })
     }, 50)
     /*setTimeout(() => {
