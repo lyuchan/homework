@@ -43,7 +43,7 @@ let i = 0;
 function write() {
     client.setID(3);
     //read();
-    setInterval(read, 100);
+    setInterval(read, 250);
 }
 let v, a, w, f, sw;
 function read() {
@@ -67,11 +67,11 @@ function read() {
                             console.log(`V:${v} A:${a}  W:${w} F:${f}`)
                             send(JSON.stringify({ v: v, i: a, p: w, f: f, sw: sw }))
                         })
-                    }, 5)
+                    }, 10)
                 })
-            }, 5)
-        }, 5)
-    }, 5)
+            }, 10)
+        }, 10)
+    }, 10)
     /*
 */
 }
