@@ -44,26 +44,26 @@
         <tr>
             <td>電壓</td>
         </tr>
-        <tr id="vtable" class="data">
+        <tr id="vtablem" class="data">
             <td></td>
         </tr>
         <tr>
             <td>電流</td>
         </tr>
-        <tr id="itable" class="data">
+        <tr id="itablem" class="data">
             <td></td>
         </tr>
         <tr>
             <td>功率</td>
         </tr>
-        <tr id="wtable" class="data">
+        <tr id="wtablem" class="data">
             <td></td>
         </tr>
         <tr>
             <td>頻率</td>
         </tr>
 
-        <tr id="ftable" class="data">
+        <tr id="ftablem" class="data">
             <td></td>
         </tr>
 
@@ -85,11 +85,15 @@
     }
     socket.addEventListener('message', event => {
         // console.log('Message from server ', event.data);
-        const data = JSON.parse(event.data); console.log(data)
+        const data = JSON.parse(event.data);
         document.getElementById("vtable").innerHTML = `${data.v}V`
         document.getElementById("itable").innerHTML = `${data.i}A`
         document.getElementById("wtable").innerHTML = `${data.p}W`
         document.getElementById("ftable").innerHTML = `${data.f}HZ`
+        document.getElementById("vtablem").innerHTML = `${data.v}V`
+        document.getElementById("itablem").innerHTML = `${data.i}A`
+        document.getElementById("wtablem").innerHTML = `${data.p}W`
+        document.getElementById("ftablem").innerHTML = `${data.f}HZ`
         // getData(data.v, data.i, data.p)
     });
     function send(data) {
