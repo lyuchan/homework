@@ -45,33 +45,34 @@ function write() {
     //read();
     setInterval(read, 1000);
 }
-let v, a, w, f;
+let v, a, w, f, sw;
 function read() {
     client.readHoldingRegisters(0, 2).then((data) => {
         v = buffertofloat32(data.buffer, 2);
     })
     setTimeout(() => {
         client.readHoldingRegisters(0x0209, 1).then((data) => {
-            console.log(data.buffer[1])
-        })
-    }, 50)
-    /*setTimeout(() => {
-        client.readHoldingRegisters(0x0004, 2).then((data) => {
-            a = buffertofloat32(data.buffer, 3);
+            sw = data.buffer[1];
         })
         setTimeout(() => {
-            client.readHoldingRegisters(0x0006, 2).then((data) => {
-                w = buffertofloat32(data.buffer, 3);
-                setTimeout(() => {
-                    client.readHoldingRegisters(0x0014, 2).then((data) => {
-                        f = buffertofloat32(data.buffer, 3);
-                        console.log(`V:${v} A:${a}  W:${w} F:${f}`)
-                        send(JSON.stringify({ v: v, i: a, p: w, f: f }))
-                    })
-                }, 50)
+            client.readHoldingRegisters(0x0004, 2).then((data) => {
+                a = buffertofloat32(data.buffer, 3);
             })
+            setTimeout(() => {
+                client.readHoldingRegisters(0x0006, 2).then((data) => {
+                    w = buffertofloat32(data.buffer, 3);
+                    setTimeout(() => {
+                        client.readHoldingRegisters(0x0014, 2).then((data) => {
+                            f = buffertofloat32(data.buffer, 3);
+                            console.log(`V:${v} A:${a}  W:${w} F:${f}`)
+                            send(JSON.stringify({ v: v, i: a, p: w, f: f, sw: sw }))
+                        })
+                    }, 50)
+                })
+            }, 50)
         }, 50)
     }, 50)
+    /*
 */
 }
 

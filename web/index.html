@@ -104,6 +104,16 @@
         document.getElementById("itablem").innerHTML = `${data.i}A`
         document.getElementById("wtablem").innerHTML = `${data.p}W`
         document.getElementById("ftablem").innerHTML = `${data.f}HZ`
+        if (data.sw == 16) {
+            document.getElementById("on").style = "color: #1e7e34"
+        } else {
+            document.getElementById("on").style = "color: #dc3545"
+        }
+        if (data.i > 0) {
+            document.getElementById("ch").style = "color: #1e7e34"
+        } else {
+            document.getElementById("ch").style = "color: #dc3545"
+        }
         // getData(data.v, data.i, data.p)
     });
     function send(data) {
