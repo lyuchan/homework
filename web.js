@@ -43,7 +43,7 @@ let i = 0;
 function write() {
     client.setID(3);
     //read();
-    setInterval(read, 1000);
+    setInterval(read, 250);
 }
 let v, a, w, f, sw;
 function read() {
