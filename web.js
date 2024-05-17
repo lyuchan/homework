@@ -30,7 +30,8 @@ wss.on('connection', (ws) => {
 function send(data) {
     let clients = wss.clients;
     clients.forEach((client) => {
-        client.send(data);//?????    });
+        client.send(data);
+    });
 }
 
 
@@ -44,30 +45,24 @@ function write() {
     //read();
     setInterval(read, 1000);
 }
-let v, a, w,f;
+let v, a, w, f;
 function read() {
     client.readHoldingRegisters(0, 2).then((data) => {
         v = buffertofloat32(data.buffer, 2);
     })
     setTimeout(() => {
         client.readHoldingRegisters(0x0004, 2).then((data) => {
-
             a = buffertofloat32(data.buffer, 3);
-
         })
         setTimeout(() => {
             client.readHoldingRegisters(0x0006, 2).then((data) => {
-
                 w = buffertofloat32(data.buffer, 3);
-               // console.log(`V:${v} A:${a}  W:${w}`)
-                //send(JSON.stringify({ v: v, i: a, p: w }))
-                        setTimeout(() => {
-                            client.readHoldingRegisters(0x0014, 2).then((data) => {
-
-                                f = buffertofloat32(data.buffer, 3);
-                            console.log(`V:${v} A:${a}  W:${w} F:${f}`)
-                            send(JSON.stringify({ v: v, i: a, p: w ,f:f}))
-                        })
+                setTimeout(() => {
+                    client.readHoldingRegisters(0x0014, 2).then((data) => {
+                        f = buffertofloat32(data.buffer, 3);
+                        console.log(`V:${v} A:${a}  W:${w} F:${f}`)
+                        send(JSON.stringify({ v: v, i: a, p: w, f: f }))
+                    })
                 }, 50)
             })
         }, 50)
