@@ -51,6 +51,11 @@ function read() {
         v = buffertofloat32(data.buffer, 2);
     })
     setTimeout(() => {
+        client.readHoldingRegisters(0x0209, 1).then((data) => {
+            console.log(data.buffer[0])
+        })
+    }, 50)
+    setTimeout(() => {
         client.readHoldingRegisters(0x0004, 2).then((data) => {
             a = buffertofloat32(data.buffer, 3);
         })

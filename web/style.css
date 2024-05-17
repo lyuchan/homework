@@ -58,6 +58,7 @@ footer {
     line-height: 1.25;
     border-radius: 0.25rem;
     transition: all 0.15s ease-in-out;
+
 }
 
 .btn:focus,
@@ -90,6 +91,11 @@ fieldset[disabled] a.btn {
     color: #fff;
     background-color: #28a745;
     border-color: #28a745;
+    width: 30vw;
+    height: 15vw;
+    font-size: 10vw;
+    border-radius: 5vw;
+
 }
 
 .btn-success:hover {
@@ -121,6 +127,10 @@ fieldset[disabled] a.btn {
     color: #fff;
     background-color: #dc3545;
     border-color: #dc3545;
+    width: 30vw;
+    height: 15vw;
+    font-size: 10vw;
+    border-radius: 5vw;
 }
 
 .btn-danger:hover {
