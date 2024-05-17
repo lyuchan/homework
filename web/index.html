@@ -68,14 +68,9 @@
         </tr>
 
     </table>
-    <h2><br></h2>
-    <table>
-        <tr>
-            <td id="on">開啟</td>
-            <td id="ch">充電</td>
-        </tr>
-    </table>
-    <h2><br></h2>
+
+    <img id="immmmmmm" src="./img/r.svg" style="width: 20vw;">
+    <h2></h2>
     <button class="btn-success" onclick="openrelay();">開啟</button>
     <button class="btn-danger" onclick="colserelay()">關閉</button>
 
@@ -106,15 +101,18 @@
         document.getElementById("wtablem").innerHTML = `${data.p}W`
         document.getElementById("ftablem").innerHTML = `${data.f}HZ`
         if (data.sw == 16) {
-            document.getElementById("on").style = "color: #1e7e34"
+            //r
+            document.getElementById("immmmmmm").src = "./img/r.svg"
         } else {
-            document.getElementById("on").style = "color: #dc3545"
+            if (data.i > 0) {
+                //g
+                document.getElementById("immmmmmm").src = "./img/g.svg"
+            } else {
+                //y
+                document.getElementById("immmmmmm").src = "./img/y.svg"
+            }
         }
-        if (data.i > 0) {
-            document.getElementById("ch").style = "color: #1e7e34"
-        } else {
-            document.getElementById("ch").style = "color: #dc3545"
-        }
+
         // getData(data.v, data.i, data.p)
     });
     function send(data) {
