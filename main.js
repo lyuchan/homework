@@ -1,16 +1,16 @@
 //https://www.adtek.com.tw/uploads/product_download/tw/A23-01-MWH-7A-Manual-TC-V15-240221.pdf
-let baudRate = 115200//讀取速率
-let id = 3//站號
-let loopdelay=250//循環讀取延遲(為0則只讀取一次)
-let relay=true//開關
+let baudRate = 9600//讀取速率
+let id = 1//站號
+let loopdelay = 250//循環讀取延遲(為0則只讀取一次)
+let relay = true//開關
 
 var ModbusRTU = require("modbus-serial");
 var client = new ModbusRTU();
 client.connectRTUBuffered("/dev/ttyS0", { baudRate: baudRate }, write);
 client.setID(id);
-if(loopdelay==0){
+if (loopdelay == 0) {
     read()
-}else{
+} else {
     setInterval(read, loopdelay);
 }
 
@@ -23,7 +23,19 @@ if(loopdelay==0){
 
 function read() {
     client.readHoldingRegisters(0, 2).then((data) => {
-        console.log(`v is :${buffertofloat32(data.buffer, 2)}`) 
+        console.log(`v is :${buffertofloat32(data.buffer, 2)}`)
+    }).then(() => {
+        client.readHoldingRegisters(4, 2).then((data) => {
+            console.log(`a is :${buffertofloat32(data.buffer, 2)}`)
+        }).then(() => {
+            client.readHoldingRegisters(14, 2).then((data) => {
+                console.log(`f is :${buffertofloat32(data.buffer, 2)}`)
+            }).then(() => {
+                client.readHoldingRegisters(12, 2).then((data) => {
+                    console.log(`pf is :${buffertofloat32(data.buffer, 2)}`)
+                })
+            })
+        })
     })
 }
 
