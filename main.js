@@ -22,16 +22,16 @@ if (loopdelay == 0) {
 //poweroutput(relay)    0x0209      INT16U      1
 
 function read() {
-    client.readHoldingRegisters(0, 2).then((data) => {
+    client.readHoldingRegisters(0x0000, 2).then((data) => {
         console.log(`v is :${buffertofloat32(data.buffer, 2)}`)
     }).then(() => {
-        client.readHoldingRegisters(4, 2).then((data) => {
+        client.readHoldingRegisters(0x0004, 2).then((data) => {
             console.log(`a is :${buffertofloat32(data.buffer, 2)}`)
         }).then(() => {
-            client.readHoldingRegisters(14, 2).then((data) => {
+            client.readHoldingRegisters(0x0014, 2).then((data) => {
                 console.log(`f is :${buffertofloat32(data.buffer, 2)}`)
             }).then(() => {
-                client.readHoldingRegisters(12, 2).then((data) => {
+                client.readHoldingRegisters(0x0012, 2).then((data) => {
                     console.log(`pf is :${buffertofloat32(data.buffer, 2)}`)
                 })
             })
@@ -47,7 +47,12 @@ function buffertofloat32(buffer, fixed) {
 
 //我希望用同步的方式來讀取MODBUS
 function write() {
-    client.writeRegister(0x0209, relay);
+    if (relay) {
+        client.writeRegister(0x0209, 0x00);
+    } else {
+        client.writeRegister(0x0209, 0x10);
+    }
+
 }
 
 
