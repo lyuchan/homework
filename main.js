@@ -44,8 +44,6 @@ function buffertofloat32(buffer, fixed) {
     return parseFloat((buffer.readFloatBE(0)).toFixed(fixed));
 }
 
-
-//我希望用同步的方式來讀取MODBUS
 function write() {
     if (relay) {
         client.writeRegister(0x0209, 0x00);
