@@ -38,9 +38,9 @@ let id = 1//站號
 let loopdelay = 250//循環讀取延遲(為0則只讀取一次)
 
 var ModbusRTU = require("modbus-serial");
-var client = new ModbusRTU();
-client.connectRTUBuffered("/dev/ttyS0", { baudRate: baudRate }, write);
-client.setID(id);
+var clientw = new ModbusRTU();
+clientw.connectRTUBuffered("/dev/ttyS0", { baudRate: baudRate });
+clientw.setID(id);
 if (loopdelay == 0) {
     read()
 } else {
@@ -56,27 +56,27 @@ if (loopdelay == 0) {
 //poweroutput(relay)    0x0209      INT16U      1
 
 function read() {
-    client.readHoldingRegisters(0x0000, 2).then((data) => {
+    clientw.readHoldingRegisters(0x0000, 2).then((data) => {
         v = buffertofloat32(data.buffer, 2)
     }).then(() => {
-        client.readHoldingRegisters(0x0004, 2).then((data) => {
+        clientw.readHoldingRegisters(0x0004, 2).then((data) => {
             a = buffertofloat32(data.buffer, 2)
         }).then(() => {
-            client.readHoldingRegisters(0x0014, 2).then((data) => {
+            clientw.readHoldingRegisters(0x0014, 2).then((data) => {
                 f = buffertofloat32(data.buffer, 2)
             }).then(() => {
-                client.readHoldingRegisters(0x0006, 2).then((data) => {
+                clientw.readHoldingRegisters(0x0006, 2).then((data) => {
                     w = buffertofloat32(data.buffer, 2)
                 }).then(() => {
-                    client.readHoldingRegisters(0x0209, 1).then((data) => {
+                    clientw.readHoldingRegisters(0x0209, 1).then((data) => {
                         swflag = data.buffer[1];
                         console.log(`V:${v} A:${a} W:${w} F:${f}`)
                         send(JSON.stringify({ v: v, i: a, p: w, f: f, sw: swflag }))
                     }).then(() => {
                         if (sw) {
-                            client.writeRegisters(0x0209, [0x10])
+                            clientw.writeRegisters(0x0209, [0x10])
                         } else {
-                            client.writeRegisters(0x0209, [0])
+                            clientw.writeRegisters(0x0209, [0])
                         }
                     })
                 })
