@@ -126,7 +126,7 @@ const handleEvent = (event) => {
                                 resText = `測試`;
                                 break;
                             case '目前電壓':
-                                resText = `目前電壓為:${v}福特`
+                                resText = `目前電壓為:${v}伏特`
                                 break;
                             case '目前電流':
                                 resText = `目前電流為:${a}安培`
