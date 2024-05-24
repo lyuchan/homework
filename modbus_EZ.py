@@ -4,10 +4,12 @@ import modbus_tk.modbus_rtu as rtu
 import struct
 import time
 
+#建立Modbus的連線
 serial_conn = rtu.RtuMaster(serial.Serial('/dev/ttyS0',115200))
 serial_conn.set_timeout(5)
 serial_conn.set_verbose(True)
 
+#擷取資料的函數
 def get_data(address):
     tmp = serial_conn.execute(3,cst.READ_HOLDING_REGISTERS,address,2)
     time.sleep(0.001)
