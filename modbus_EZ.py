@@ -1,6 +1,7 @@
 import serial
 import modbus_tk.defines as cst
 import modbus_tk.modbus_rtu as rtu
+import struct
 import time
 
 serial_conn = rtu.RtuMaster(serial.Serial('/dev/ttyS0',115200))
@@ -10,7 +11,7 @@ serial_conn.set_verbose(True)
 def get_data(address):
     tmp = serial_conn.execute(3,cst.READ_HOLDING_REGISTERS,address,2)
     time.sleep(0.001)
-    return round(eval('0b' + format(tmp[0],'b') + format(tmp[1],'b'))/10000000,2)
+    return round(struct.unpack('>f', struct.pack('>HH', tmp[0], tmp[1])),2)
 
 def send_data(address,data):
     serial_conn.execute(3,cst.WRITE_SINGLE_REGISTER,address,output_value=data)
