@@ -13,7 +13,7 @@ serial_conn.set_verbose(True)
 def get_data(address):
     tmp = serial_conn.execute(3,cst.READ_HOLDING_REGISTERS,address,2)
     time.sleep(0.001)
-    return round(struct.unpack('>f', struct.pack('>HH', tmp[0], tmp[1])),2)
+    return round(struct.unpack('>f', struct.pack('>HH', tmp[0], tmp[1]))[0],2)
 
 def send_data(address,data):
     serial_conn.execute(3,cst.WRITE_SINGLE_REGISTER,address,output_value=data)
